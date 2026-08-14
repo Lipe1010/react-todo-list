@@ -1,0 +1,237 @@
+/* Importando uma fonte limpa, redonda e amigável, clássica da era Frutiger Aero */
+@import url('https://fonts.googleapis.com/css2?family=Nunito:wght@400;700;900&display=swap');
+
+:root {
+  --aero-blue: #00a8ff;
+  --aero-light-blue: #74b9ff;
+  --aero-green: #55efc4;
+  --aero-white: rgba(255, 255, 255, 0.7);
+  --glass-border: rgba(255, 255, 255, 0.5);
+  --text-dark: #2d3436;
+}
+
+/* Fundo: Céu azul encontrando a natureza, com um toque de brilho */
+body {
+  margin: 0;
+  padding: 0;
+  background: linear-gradient(135deg, #74ebd5 0%, #9face6 100%);
+  background-attachment: fixed;
+  font-family: 'Nunito', sans-serif;
+  color: var(--text-dark);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 100vh;
+}
+
+/* O Container Principal: Efeito Glassmorphism (Vidro Fosco) */
+.container {
+  width: 90%;
+  max-width: 550px;
+  background: linear-gradient(135deg, rgba(255,255,255,0.6) 0%, rgba(255,255,255,0.3) 100%);
+  padding: 30px;
+  border: 1px solid var(--glass-border);
+  border-radius: 25px;
+  box-shadow: 
+    0 8px 32px rgba(0, 0, 0, 0.1),
+    inset 0 0 10px rgba(255, 255, 255, 0.8);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  position: relative;
+  overflow: hidden;
+}
+
+/* Brilho diagonal passando pelo painel (Lens Flare sutil) */
+.container::before {
+  content: "";
+  position: absolute;
+  top: -50%;
+  left: -50%;
+  width: 200%;
+  height: 200%;
+  background: linear-gradient(to right, rgba(255,255,255,0) 0%, rgba(255,255,255,0.4) 50%, rgba(255,255,255,0) 100%);
+  transform: rotate(30deg);
+  animation: aero-shine 6s infinite;
+  pointer-events: none;
+}
+
+@keyframes aero-shine {
+  0% { transform: translateX(-100%) rotate(30deg); }
+  20%, 100% { transform: translateX(100%) rotate(30deg); }
+}
+
+/* Título Bubbly e Brilhante */
+h1 {
+  font-size: 32px;
+  font-weight: 900;
+  text-align: center;
+  color: #0984e3;
+  text-shadow: 2px 2px 4px rgba(255, 255, 255, 0.8);
+  margin-bottom: 30px;
+  letter-spacing: -1px;
+}
+
+/* Formulário e Inputs */
+.formulario {
+  display: flex;
+  gap: 15px;
+  margin-bottom: 10px;
+}
+
+input[type="text"] {
+  flex: 1;
+  background: rgba(255, 255, 255, 0.9);
+  border: 2px solid rgba(255, 255, 255, 0.8);
+  color: var(--text-dark);
+  font-family: 'Nunito', sans-serif;
+  font-size: 18px;
+  font-weight: 700;
+  padding: 12px 20px;
+  border-radius: 30px;
+  outline: none;
+  box-shadow: inset 0 3px 6px rgba(0,0,0,0.05);
+  transition: all 0.3s ease;
+}
+
+input[type="text"]:focus {
+  background: #ffffff;
+  border-color: var(--aero-light-blue);
+  box-shadow: 
+    inset 0 3px 6px rgba(0,0,0,0.05),
+    0 0 15px rgba(116, 185, 255, 0.6);
+}
+
+/* Botões Glossy (Brilhantes estilo bolha de água/vidro) */
+button {
+  background: linear-gradient(to bottom, #ffffff 0%, #e0f3ff 40%, #bde4ff 50%, #e0f3ff 100%);
+  border: 1px solid #74b9ff;
+  color: #0984e3;
+  font-family: 'Nunito', sans-serif;
+  font-weight: 900;
+  font-size: 16px;
+  padding: 10px 25px;
+  border-radius: 25px;
+  cursor: pointer;
+  transition: all 0.2s cubic-bezier(0.25, 0.8, 0.25, 1);
+  box-shadow: 
+    0 4px 6px rgba(0, 0, 0, 0.1),
+    inset 0 2px 0 rgba(255, 255, 255, 1);
+}
+
+button:hover {
+  background: linear-gradient(to bottom, #ffffff 0%, #eaf6ff 40%, #cceaff 50%, #eaf6ff 100%);
+  transform: translateY(-2px);
+  box-shadow: 
+    0 6px 12px rgba(9, 132, 227, 0.2),
+    inset 0 2px 0 rgba(255, 255, 255, 1);
+}
+
+button:active {
+  transform: translateY(1px);
+  box-shadow: 
+    0 2px 3px rgba(0, 0, 0, 0.1),
+    inset 0 3px 5px rgba(0, 0, 0, 0.1);
+}
+
+/* Textos de status */
+.digitado, .digitando, .vazio {
+  font-size: 16px;
+  font-weight: 700;
+  color: #2d3436;
+  text-align: center;
+  text-shadow: 1px 1px 2px rgba(255,255,255,0.8);
+}
+
+.vazio {
+  color: #d63031;
+  background: rgba(255, 255, 255, 0.5);
+  padding: 10px;
+  border-radius: 15px;
+  display: inline-block;
+  width: 100%;
+  box-sizing: border-box;
+}
+
+/* Lista de Tarefas */
+.lista {
+  list-style-type: none;
+  padding: 0;
+  margin: 20px 0;
+  max-height: 320px;
+  overflow-y: auto;
+  padding-right: 10px;
+}
+
+/* Customizando a barra de rolagem (Estilo Aero Glass) */
+.lista::-webkit-scrollbar {
+  width: 10px;
+}
+.lista::-webkit-scrollbar-track {
+  background: rgba(255, 255, 255, 0.2);
+  border-radius: 10px;
+}
+.lista::-webkit-scrollbar-thumb {
+  background: rgba(9, 132, 227, 0.4);
+  border-radius: 10px;
+  border: 1px solid rgba(255, 255, 255, 0.5);
+}
+.lista::-webkit-scrollbar-thumb:hover {
+  background: rgba(9, 132, 227, 0.7);
+}
+
+/* Cada Tarefa (Cards de Vidro) */
+.item {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background: linear-gradient(135deg, rgba(255,255,255,0.8) 0%, rgba(255,255,255,0.4) 100%);
+  margin-bottom: 12px;
+  padding: 15px 20px;
+  border: 1px solid rgba(255, 255, 255, 0.8);
+  border-radius: 18px;
+  font-size: 18px;
+  font-weight: 700;
+  box-shadow: 0 4px 10px rgba(0,0,0,0.03);
+  transition: all 0.3s ease;
+}
+
+.item:hover {
+  transform: scale(1.02);
+  background: linear-gradient(135deg, rgba(255,255,255,0.95) 0%, rgba(255,255,255,0.6) 100%);
+  box-shadow: 0 8px 15px rgba(9, 132, 227, 0.15);
+}
+
+/* Ações (Botões da lista) */
+.acoes {
+  display: flex;
+  gap: 8px;
+}
+
+.acoes button {
+  font-size: 12px;
+  padding: 8px 15px;
+}
+
+/* Estilo para tarefa concluída (Suave e esmaecida) */
+.concluida {
+  text-decoration: line-through;
+  color: #b2bec3;
+  font-style: italic;
+  transition: all 0.3s ease;
+}
+
+/* Ajuste no botão de limpar tarefas */
+.container > button:last-child {
+  width: 100%;
+  margin-top: 15px;
+  background: linear-gradient(to bottom, #ffffff 0%, #ffeaa7 40%, #fdcb6e 50%, #ffeaa7 100%);
+  border: 1px solid #e1b12c;
+  color: #d35400;
+}
+
+.container > button:last-child:hover {
+  background: linear-gradient(to bottom, #ffffff 0%, #fff2c7 40%, #fddb95 50%, #fff2c7 100%);
+  box-shadow: 
+    0 6px 12px rgba(211, 84, 0, 0.2),
+    inset 0 2px 0 rgba(255, 255, 255, 1);
+}
