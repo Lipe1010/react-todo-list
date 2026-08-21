@@ -1,9 +1,22 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import "./App.css";
+
+import Header from "./components/Header";
+import FormComponent from "./components/FormComponent";
+import ListComponent from "./components/ListComponent";
+import BtComponent from "./components/BtComponent";
+import Footer from "./components/Footer";
 
 function App() {
   const [texto, setTexto] = useState("");
-  const [tarefas, setTarefas] = useState([]);
+  const [tarefas, setTarefas] = useState(() => {
+    const tarefasSalvas = localStorage.getItem("tarefas");
+    return tarefasSalvas ? JSON.parse(tarefasSalvas) : [];
+  });
+
+  useEffect(() => {
+    localStorage.setItem("tarefas", JSON.stringify(tarefas));
+  }, [tarefas]);
 
   function adicionarTarefa() {
     if (texto.trim() !== "") {
@@ -34,7 +47,6 @@ function App() {
     const listaAtualizada = tarefas.filter(
       (_, indice) => indice !== indiceRemover
     );
-
     setTarefas(listaAtualizada);
   }
 
@@ -54,23 +66,8 @@ function App() {
 
   return (
     <div className="container">
-      <h1>Lista de Tarefas</h1>
-
-      <div className="formulario">
-        <input
-          type="text"
-          value={texto}
-          onChange={(e) => setTexto(e.target.value)}
-          placeholder="Digite uma tarefa"
-          onKeyDown={(e) => {
-            if (e.key === "Enter") {
-              adicionarTarefa();
-            }
-          }}
-        />
-
-        <button onClick={adicionarTarefa}>Adicionar</button>
-      </div>
+      
+      <Header />
 
       <p className="digitado">Você digitou: {texto}</p>
 
@@ -78,28 +75,24 @@ function App() {
         <p className="vazio">Nenhuma tarefa cadastrada</p>
       )}
 
-      <ul className="lista">
-        {tarefas.map((tarefa, indice) => (
-          <li className="item" key={indice}>
-            <span className={tarefa.concluida ? "concluida" : ""}>
-              {tarefa.texto}
-            </span>
+      <FormComponent
+        texto={texto}
+        adicionarTarefa={adicionarTarefa}
+        setTexto={setTexto}
+      />
 
-            <div className="acoes">
-              <button onClick={() => concluirTarefa(indice)}>
-                {tarefa.concluida ? "Desfazer" : "Concluir"}
-              </button>
-              <button onClick={() => removerTarefa(indice)}>Remover</button>
-            </div>
-          </li>
-        ))}
-      </ul>
-
-      <p className="digitando">Total de tarefas: {tarefas.length}</p>
+      <ListComponent
+        tarefas={tarefas}
+        concluirTarefa={concluirTarefa}
+        removerTarefa={removerTarefa}
+      />
 
       {tarefas.length > 0 && (
-        <button onClick={limparTarefas}>Limpar Tarefas</button>
+        <BtComponent texto="Limpar Tarefas" onClick={limparTarefas} />
       )}
+
+      <Footer totalTarefas={tarefas.length} />
+      
     </div>
   );
 }
